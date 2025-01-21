@@ -3,7 +3,7 @@ import { BankType, AccountType } from "./types";
 /**
  * Bank class implements the BankType interface
  * and stores accounts and usernames
- * and is able to create new accounts
+ * and is able to create new accounts, deposit amount
  */
 
 export class Bank implements BankType {
@@ -80,5 +80,30 @@ export class Bank implements BankType {
 
         this.accounts.push(newAccount);
         return newAccount;
+    }
+    /**
+     * 
+     * @param username - a string representing the username of the customer
+     * @param accountNumber - a number representing the account number to which amount needs to be deposited
+     * @param deposit - a number representing the amount to be deposited to the account
+     * @returns  the account with the updated balance
+     */
+    depositAmount(username: string, accountNumber: number, deposit: number): AccountType {
+        if(!this.isUsernameExists(username)) {
+            throw new Error('User not found');
+        }
+
+        if(!this.findAccount(accountNumber)) {
+            throw new Error('Account does not exist');
+        }
+
+        if(deposit < 0) {
+            throw new Error('Deposit must be greater than 0');
+        }
+
+        const account = this.findAccount(accountNumber);
+        account!.balance += deposit;
+        return account!;
+
     }
 }
