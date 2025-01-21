@@ -3,7 +3,7 @@ import { BankType, AccountType } from "./types";
 /**
  * Bank class implements the BankType interface
  * and stores accounts and usernames
- * and is able to create new accounts, deposit amount
+ * and is able to create new accounts, deposit amount, withdraw amount, check balance
  */
 
 export class Bank implements BankType {
@@ -130,5 +130,24 @@ export class Bank implements BankType {
 
         account!.balance -= amount;
         return account!;
+    }
+    /**
+     * 
+     * @param username - a string representing the username of the customer
+     * @param accountNumber - a number representing the account number for which the balance is checked
+     * @returns the balance in the account
+     */
+    getBalance(username: string, accountNumber: number): number {
+        if(!this.isUsernameExists(username)) {
+            throw new Error('User not found');
+        }
+
+        if(!this.findAccount(accountNumber)) {
+            throw new Error('Account does not exist');
+        }
+
+        const account = this.findAccount(accountNumber);
+
+        return account!.balance;
     }
 }

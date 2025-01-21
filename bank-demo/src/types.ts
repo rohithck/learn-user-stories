@@ -14,3 +14,7 @@ export interface BankType {
 export interface BankType {
     withdrawAmount(username: string, accountNumber: number, amount: number): AccountType
 }
+
+export interface BankType {
+    getBalance(username: string, accountNumber: number): number
+}
