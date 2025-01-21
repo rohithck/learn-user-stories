@@ -86,7 +86,7 @@ export class Bank implements BankType {
      * @param username - a string representing the username of the customer
      * @param accountNumber - a number representing the account number to which amount needs to be deposited
      * @param deposit - a number representing the amount to be deposited to the account
-     * @returns  the account with the updated balance
+     * @returns - the account with the updated balance
      */
     depositAmount(username: string, accountNumber: number, deposit: number): AccountType {
         if(!this.isUsernameExists(username)) {
@@ -105,5 +105,30 @@ export class Bank implements BankType {
         account!.balance += deposit;
         return account!;
 
+    }
+    /**
+     * 
+     * @param username - a string representing the username of the customer
+     * @param accountNumber - a number representing the account number from which amount needs to be withdrawn
+     * @param amount - a number representing the amount to be withdrawn from the account
+     * @returns - the account with the updated balance
+     */
+    withdrawAmount(username: string, accountNumber: number, amount: number): AccountType {
+        if(!this.isUsernameExists(username)) {
+            throw new Error('User not found');
+        }
+
+        if(!this.findAccount(accountNumber)) {
+            throw new Error('Account does not exist');
+        }
+
+        const account = this.findAccount(accountNumber);
+
+        if(amount >  account!.balance) {
+            throw new Error('Withdraw amount should be lesser than or equal to the balance');
+        }
+
+        account!.balance -= amount;
+        return account!;
     }
 }

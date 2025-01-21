@@ -10,3 +10,7 @@ export interface BankType {
 export interface BankType {
     depositAmount(username: string, accountNumber: number, deposit: number): AccountType
 }
+
+export interface BankType {
+    withdrawAmount(username: string, accountNumber: number, amount: number): AccountType
+}
